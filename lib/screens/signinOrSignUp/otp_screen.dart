@@ -1,7 +1,9 @@
 import 'package:app1/screens/signinOrSignUp/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../colors.dart';
+import 'package:get/get.dart';
+
+
 class OTPScreen extends ConsumerWidget {
   static const routeName = "/OTP-screen";
   final String verificationID;
@@ -20,9 +22,8 @@ class OTPScreen extends ConsumerWidget {
 
     return Scaffold(
     appBar: AppBar(
-      title:Text("Verifying your number"),
+      title:Text("verifying_phone".tr),
       elevation: 0,
-      backgroundColor: backgroundColor,
       leading: GestureDetector(
         onTap: (){
           Navigator.pop(context);
@@ -39,8 +40,8 @@ class OTPScreen extends ConsumerWidget {
         width: size.width*0.6,
         child: TextField(
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white,),
-          decoration: InputDecoration(
+          style:const TextStyle(color: Colors.white,),
+          decoration:const InputDecoration(
             hintText: '_ _ _ _ _ _ ',
             hintStyle: TextStyle(
              fontSize: 30,

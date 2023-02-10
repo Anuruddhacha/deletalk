@@ -1,6 +1,10 @@
+import 'package:app1/app_constants.dart';
+import 'package:app1/components/primary_button.dart';
 import 'package:app1/constants.dart';
 import 'package:app1/screens/signinOrSignUp/signin_or_signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../localization_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
   
@@ -11,20 +15,51 @@ class WelcomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Spacer(flex: 2),
+            const Spacer(flex: 2),
             Image.asset("assets/images/welcome_image.png"),
-            Spacer(flex: 3),
+            const Spacer(flex: 3),
             Text(
-              "Welcome to Deletalk",
+              "welcome".tr,
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
                   .headline5!
                   .copyWith(fontWeight: FontWeight.bold,color: Colors.white),
             ),
-            Spacer(),
-            Spacer(flex: 3),
-            FittedBox(
+            const Spacer(),
+            const Spacer(flex: 3),
+            
+
+        GetBuilder<LocalizationController>(builder: ((controller) {
+         return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PrimaryButton(text: "English", press: (() {
+                controller.setLanguage(Locale(
+                  AppConstants.languages[0].languageCode,
+                  AppConstants.languages[0].countryCode,
+                ));
+              })),
+            ),
+            const SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PrimaryButton(text: "한국인", press: (() {
+                controller.setLanguage(Locale(
+                  AppConstants.languages[1].languageCode,
+                  AppConstants.languages[1].countryCode,
+                ));
+              })),
+            )
+
+          ],
+         );
+
+
+    })),
+    const SizedBox(height: 10,),
+    FittedBox(
               child: TextButton(
                   onPressed: () => Navigator.push(
                         context,
@@ -35,20 +70,21 @@ class WelcomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "Skip",
+                        'next'.tr,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Colors.white,
                             ),
                       ),
-                      SizedBox(width: kDefaultPadding / 4),
-                      Icon(
+                      const SizedBox(width: kDefaultPadding / 4),
+                      const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
                         color: Colors.white,
                       )
                     ],
                   )),
-            )
+            ),
+
           ],
         ),
       ),

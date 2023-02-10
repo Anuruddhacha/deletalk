@@ -151,6 +151,22 @@ return userModel;
 }
 
 
+Future<User_Model?> getLoggedInUserInfo() async{
+
+  var userData  = await firestore.collection('users').doc(auth.currentUser!.uid)
+.get();
+
+User_Model? userModel;
+
+
+if(userData.data() != null){
+  userModel = User_Model.fromMap(userData.data()!);
+}
+
+return userModel;
+}
+
+
 Future<bool> getCurrentUserStatus() async{
 
 

@@ -52,6 +52,10 @@ dependencies:
   firebase_core_platform_interface: ^4.5.1
   firebase_messaging: ^13.0.4
   is_first_run: ^1.0.0
+  syncfusion_flutter_datepicker: ^20.4.44
+  intl: ^0.17.0
+  get: ^4.6.5
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +83,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/locales/en.json
+    - assets/locales/ko.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

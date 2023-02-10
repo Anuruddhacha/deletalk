@@ -2,24 +2,28 @@ import 'package:app1/common/message_enum.dart';
 import 'package:app1/models/ChatMessage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants.dart';
 import '../../../models/message.dart';
+import '../../../models/user_model.dart';
+import '../../../widgets/loader.dart';
+import '../../signinOrSignUp/controller/auth_controller.dart';
 import 'audio_message.dart';
 import 'text_message.dart';
 import 'video_message.dart';
 
-class MessageCard extends StatelessWidget {
+class MessageCard extends ConsumerWidget {
   const MessageCard({
     Key? key,
     required this.message,
-    required this.profilePic
+    required this.uid
   }) : super(key: key);
 
   final Message message;
-  final String profilePic;
+  final String uid;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     Widget messageContaint(Message message) {
       switch (message.type) {
         case MessageEnum.text:
@@ -29,7 +33,7 @@ class MessageCard extends StatelessWidget {
         case MessageEnum.video:
           return VideoMessage();
         default:
-          return SizedBox();
+          return const SizedBox();
       }
     }
 
@@ -40,14 +44,37 @@ class MessageCard extends StatelessWidget {
             message.senderId == FirebaseAuth.instance.currentUser!.uid ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!(message.senderId == FirebaseAuth.instance.currentUser!.uid)) ...[
-            CircleAvatar(
-              radius: 12,
-              backgroundImage: NetworkImage(profilePic),
-            ),
-            SizedBox(width: kDefaultPadding / 2),
+            StreamBuilder<User_Model>(
+        stream: ref.read(authControlerProvider).userDataByID(uid),
+        builder: (context, snapshot) {
+
+         
+
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Loader();
+            }
+
+          User_Model user = snapshot.data!;
+          return CircleAvatar(
+                backgroundImage: NetworkImage(user.proPic),
+                radius: 20,
+              );
+
+
+        }
+      ),
+           const SizedBox(width: kDefaultPadding / 2),
           ],
           messageContaint(message),
-          if (message.isSeen) const Icon(Icons.done_all)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+             const SizedBox(height: 20),
+            if(message.senderId == FirebaseAuth.instance.currentUser!.uid)
+           (message.isSeen) ? const Icon(Icons.done_all,color: Colors.blue,size: 20,) : const Icon(Icons.done,color: Colors.grey,size: 20,)
+            ],
+          ),
+          
         ],
       ),
     );
@@ -74,7 +101,7 @@ class MessageStatusDot extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(left: kDefaultPadding / 2),
+      margin:const EdgeInsets.only(left: kDefaultPadding / 2),
       height: 12,
       width: 12,
       decoration: BoxDecoration(

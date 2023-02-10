@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -19,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      shape: RoundedRectangleBorder(
+      shape:const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(40)),
       ),
       padding: padding,
@@ -28,7 +27,7 @@ class PrimaryButton extends StatelessWidget {
       onPressed: press,
       child: Text(
         text,
-        style: TextStyle(color: Colors.white),
+        style:const TextStyle(color: Colors.white),
       ),
     );
   }

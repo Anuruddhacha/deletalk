@@ -4,12 +4,16 @@ class ChatContact{
   final String contactID;
   final DateTime timeSent;
   final String lastMessage;
+  final bool isHide;
+  final bool hideByMe;
 
   ChatContact({required this.name,
    required this.profilePic,
     required this.contactID,
      required this.timeSent,
-      required this.lastMessage});
+      required this.lastMessage,
+      required this.isHide,
+      required this.hideByMe});
 
       factory ChatContact.fromMap(Map<String,dynamic> map){
          return ChatContact(
@@ -17,7 +21,10 @@ class ChatContact{
           profilePic: map['profilePic'] ?? '',
           contactID: map['contactID'] ?? '',
           timeSent: map['timeSent'].toDate(),
-          lastMessage: map['lastMessage']);
+          lastMessage: map['lastMessage'],
+          isHide: map['isHide'],
+          hideByMe: map['hideByMe']
+          );
 
 
       }
@@ -29,7 +36,9 @@ class ChatContact{
           'profilePic': profilePic,
           'contactID': contactID,
           'timeSent': timeSent,
-          'lastMessage': lastMessage
+          'lastMessage': lastMessage,
+          'isHide':isHide,
+          'hideByMe':hideByMe
         };
       }
 

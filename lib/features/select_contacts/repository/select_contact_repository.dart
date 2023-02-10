@@ -1,10 +1,8 @@
 import 'package:app1/screens/messages/message_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../models/user_model.dart';
 import '../../../utils/utils.dart';
 

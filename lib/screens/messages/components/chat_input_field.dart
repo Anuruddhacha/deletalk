@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../constants.dart';
 import '../../../features/chat/chat_controller.dart';
+import 'package:get/get.dart';
 
 class ChatInputField extends ConsumerStatefulWidget {
   
@@ -85,8 +85,8 @@ _messageController.clear();
                         focusNode: focusNode,
                         controller: _messageController,
                         style:const  TextStyle(color: Colors.white),
-                        decoration:const InputDecoration(
-                          hintText: "Type message",
+                        decoration: InputDecoration(
+                          hintText: "type_mes".tr,
                           hintStyle: TextStyle(color: Colors.white),
                           border: InputBorder.none,
                         ),

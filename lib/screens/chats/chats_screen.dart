@@ -1,18 +1,51 @@
 import 'package:app1/constants.dart';
 import 'package:app1/features/select_contacts/screen/select_contacts_screen.dart';
-import 'package:app1/screens/tabs/calls.dart';
+import 'package:app1/models/user_model.dart';
 import 'package:app1/screens/tabs/chat.dart';
 import 'package:app1/screens/tabs/people.dart';
 import 'package:app1/screens/tabs/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import '../signinOrSignUp/controller/auth_controller.dart';
 
-class ChatsScreen extends StatefulWidget {
+class ChatsScreen extends ConsumerStatefulWidget {
   @override
-  _ChatsScreenState createState() => _ChatsScreenState();
+  ConsumerState<ChatsScreen> createState() => _ChatsScreenState();
 }
 
-class _ChatsScreenState extends State<ChatsScreen> {
+class _ChatsScreenState extends ConsumerState<ChatsScreen> with WidgetsBindingObserver {
+
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+
+   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+      case AppLifecycleState.resumed:
+        ref.read(authControlerProvider).setUserState(true);
+        break;
+      
+      case AppLifecycleState.inactive: 
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        ref.read(authControlerProvider).setUserState(false);
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
  
 
@@ -23,38 +56,40 @@ class _ChatsScreenState extends State<ChatsScreen> {
     List pages = [
   Chats(),
   People(),
-  Calls(),
   Profile()
   ];
 
   List titles = [
-  "Chats",
-  "Peoples",
-  "Calls",
-  "Profile"
+  "chats".tr,
+  "people".tr,
+  "profile".tr
   ];
 
-    return Scaffold(
-      appBar: buildAppBar(titles,_selectedIndex),
-      body: pages[_selectedIndex],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
-            Navigator.push(context, MaterialPageRoute(builder: ((context) => SelectContactScreen())));
-
-        },
-        backgroundColor: kPrimaryColor,
-        child: const Icon(
-          Icons.person_add_alt_1,
-          color: Colors.white,
-        ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: buildAppBar(titles,_selectedIndex),
+        body: pages[_selectedIndex],
+        bottomNavigationBar: buildBottomNavigationBar(),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: kContentColorLightTheme,
+          child: const Icon(Icons.person,color: Colors.greenAccent,),
+          onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: ((context) => SelectContactScreen())));
+        },),
       ),
-      bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
+
+  User_Model? userModel;
+
   BottomNavigationBar buildBottomNavigationBar() {
+   
+
     return BottomNavigationBar(
+      selectedItemColor: kPrimaryColor,
+      unselectedItemColor: Colors.grey,
+      backgroundColor: Colors.black.withOpacity(0.1),
       type: BottomNavigationBarType.fixed,
       currentIndex: _selectedIndex,
       onTap: (value) {
@@ -63,16 +98,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
         });
       },
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
-        BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
-        BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
-        BottomNavigationBarItem(
-          icon: CircleAvatar(
-            radius: 14,
-            backgroundImage: AssetImage("assets/images/user_2.png"),
-          ),
-          label: "Profile",
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "chats".tr),
+        BottomNavigationBarItem(icon: Icon(Icons.people), label: "people".tr),
+        BottomNavigationBarItem(icon:  Icon(Icons.person), label: "profile".tr),
       ],
     );
   }
@@ -82,12 +110,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
       automaticallyImplyLeading: false,
       title: Text(titles[_selectedIndex]),
       elevation: 0,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {},
-        ),
-      ],
     );
   }
+  
+  
 }

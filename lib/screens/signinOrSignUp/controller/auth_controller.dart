@@ -1,6 +1,5 @@
 
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/user_model.dart';
@@ -79,6 +78,11 @@ void setUserState(bool isOnline) {
 
 Future<User_Model> userStaticDataByID(String userID) {
   return authRepository.userStaticDataByID(userID);
+}
+
+
+Future<User_Model?> getLoggedInUserInfo() {
+  return authRepository.getLoggedInUserInfo();
 }
 
 

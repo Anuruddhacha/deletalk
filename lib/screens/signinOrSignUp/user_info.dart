@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:get/get.dart';
 import '../../utils/utils.dart';
 import 'controller/auth_controller.dart';
 
@@ -51,7 +49,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                     child: IconButton(
                     onPressed: (){
                        selectImage();
-                     }, icon: Icon(Icons.add_a_photo,color: Colors.white,)),
+                     }, icon:const Icon(Icons.add_a_photo,color: Colors.white,)),
                   )
                 ],
               ),
@@ -60,13 +58,13 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                 children: [
                 Container(
                   width: size.width * 0.85,
-                  padding: EdgeInsets.all(20),
+                  padding:const EdgeInsets.all(20),
                   child: TextField(
-                    style: TextStyle(color: Colors.white),
+                    style:const TextStyle(color: Colors.white),
                     controller: nameController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your name',
-                      hintStyle: TextStyle(color: Colors.white)
+                    decoration:  InputDecoration(
+                      hintText: "enter_name".tr,
+                      hintStyle:const TextStyle(color: Colors.white)
                     ),
                   ),
                 ),
@@ -74,7 +72,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                 IconButton(
                   onPressed: (){
                     storeUSerData();
-                }, icon: Icon(Icons.done,
+                }, icon:const Icon(Icons.done,
                 color: Colors.white,))
 
 

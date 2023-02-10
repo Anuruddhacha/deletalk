@@ -1,10 +1,9 @@
 import 'package:app1/components/primary_button.dart';
 import 'package:app1/constants.dart';
-import 'package:app1/screens/chats/chats_screen.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:get/get.dart';
 import '../../colors.dart';
 import 'controller/auth_controller.dart';
 
@@ -33,7 +32,7 @@ class _SigninOrSignupScreenState extends ConsumerState<SigninOrSignupScreen> {
     
     return Scaffold(
       backgroundColor: kContentColorLightTheme,
-      appBar: AppBar(title: const Text("Enter your phone number"),
+      appBar: AppBar(title: Text("enter_phone".tr),
       elevation: 0,
       backgroundColor: kContentColorLightTheme,
       ),
@@ -48,13 +47,13 @@ class _SigninOrSignupScreenState extends ConsumerState<SigninOrSignupScreen> {
               Column(
                 children: [  Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: const Text("Deletalk will need to verify your phone number",
-                  style: TextStyle(
+                  child:  Text("verify_phone".tr,
+                  style:const TextStyle(
                     color: Colors.white
                   ),),
                 ),
       
-                SizedBox(height: 10,),
+               const SizedBox(height: 10,),
       
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -62,8 +61,8 @@ class _SigninOrSignupScreenState extends ConsumerState<SigninOrSignupScreen> {
                     onTap: (){
                   pickCountry(context);
                     },
-                    child: const Text("Pick country",
-                    style: TextStyle(
+                    child:  Text("pick_country".tr,
+                    style:const TextStyle(
                       color: Colors.blue
                     ),),
                   ),
@@ -74,17 +73,17 @@ class _SigninOrSignupScreenState extends ConsumerState<SigninOrSignupScreen> {
                   children: [
       
           (country != null) ?  Text('+${country!.phoneCode}',style: TextStyle(color: Colors.white),):
-          Text(""),
+         const Text(""),
       
-           SizedBox(width: 4,),
+          const SizedBox(width: 4,),
            SizedBox(width: size.width * 0.7,
            child: TextField(
             controller: phoneController,
-            style: TextStyle(color: Colors.white,),
+            style:const TextStyle(color: Colors.white,),
             
             decoration: InputDecoration(
-              hintText: 'phone number',
-              hintStyle: TextStyle(color: Colors.white)
+              hintText: 'phone_number'.tr,
+              hintStyle: const TextStyle(color: Colors.white)
             ),
            ),
            ),
@@ -92,12 +91,12 @@ class _SigninOrSignupScreenState extends ConsumerState<SigninOrSignupScreen> {
            
            ])],
               ),
-              SizedBox(height: 10,),
+             const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 70),
                 child: PrimaryButton(
                 color: kPrimaryColor,
-                text: "Send",
+                text: "send".tr,
                 press: () {
                     sendPhoneNumber();
                 },
@@ -137,11 +136,11 @@ showCountryPicker(
    countryListTheme: CountryListThemeData(
     backgroundColor: backgroundColor,
     
-    textStyle: TextStyle(
+    textStyle:const TextStyle(
       color: Colors.white,
       
     ),
-    searchTextStyle: TextStyle(
+    searchTextStyle:const TextStyle(
       color: Colors.white,
       
     ),

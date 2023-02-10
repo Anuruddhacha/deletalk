@@ -1,6 +1,7 @@
 import 'package:app1/models/Chat.dart';
 import 'package:app1/models/chat_contact.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 
@@ -29,22 +30,8 @@ class ChatCard extends StatelessWidget {
                   radius: 24,
                   backgroundImage: NetworkImage(chat.profilePic),
                 ),
-               /* if (chat.)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      height: 16,
-                      width: 16,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            width: 3),
-                      ),
-                    ),
-                  )  */
+               
+                  
               ],
             ),
             Expanded(
@@ -75,8 +62,13 @@ class ChatCard extends StatelessWidget {
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(chat.timeSent.toString(),style: const TextStyle(color: Colors.white),),
+              child: Text(DateFormat.MMMMEEEEd().format(chat.timeSent),style: const TextStyle(color: Colors.white),),
             ),
+
+            chat.hideByMe ? const Padding(
+              padding:  EdgeInsets.all(8.0),
+              child:  Icon(Icons.hide_source_sharp,color: Colors.green,),
+            ) : const SizedBox.shrink()
           ],
         ),
       ),
